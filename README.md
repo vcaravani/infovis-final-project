@@ -7,6 +7,9 @@ Spotigraph is a web application that allows the interactive visualization of the
 Spotigraph allows you to better understand the galaxy of artists related to the current listening artist, in the visualization it is possible to browse the artists by genre and select artists to queue in the listening. For full funcionality it requires a Spotify Premium Account.
 Spotigraph is my final project for the Information Visualization class by Prof. Maurizio Patrignani and my last exam at Roma Tre University :)
 
+![alt text](https://github.com/vcaravani/infovis-final-project/blob/main/spotigraph.jpg?raw=true)
+
+
 ## Motivation
 Spotify is the best application on the market for listening to music, however there is no possibility to graphically browse the artists. The page of an artist presents related artists through a list, without any informative content on the genres and popularity of the artist and its related.
 
@@ -27,12 +30,12 @@ React is to use to build the structure of the application, and to render traditi
 
 In src/components there is ForceGraphClass.js class which manages the state and the rendering of the <div> containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
  
-In a nutshell it is a wrapper that allows the passage of the data relating to the current track to the d3 code.
+In a nutshell ForceGraphClass is a wrapper that allows the passage of the data relating to the current track to the d3 code in ForceGraphGenerator.js module.
 
 
 ### Visulization
 
-The main object of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-related (relatd of related).
+The main goal of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-related (relatd of related).
 
 The requests to the Spotify Web Api lead to the creation of a graph through a data structure {'nodes': [...],' links: [...]}, where there is a node for each artist and a link between nodes for each correlation relationship.
 
