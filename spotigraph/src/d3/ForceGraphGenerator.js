@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import styles from "./ForceGraph.module.css";
 
 
 /**
@@ -19,6 +18,14 @@ export function runForceGraph(
 ) {
 
 
+
+
+  //  genres color map
+
+  function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
   let genres = []
   allgenres.forEach((genre) => {
     if(genre === undefined){
@@ -26,12 +33,6 @@ export function runForceGraph(
       genres.push(genre)
     }
   })
-  // generate color map
-
-
-  function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-  }
 
   let colors = []
   let genresColorMap = {}
@@ -45,7 +46,6 @@ export function runForceGraph(
   })
 
 
-  const dimensionFactor = nodes.length/100
 
 
   // get the container’s width and height
@@ -53,14 +53,10 @@ export function runForceGraph(
   const height = containerRect.height //* dimensionFactor
   const width = containerRect.width //* dimensionFactor
 
-  // color, icon, getClass functions will retrieve the color, icon, and CSS class for a given node.
-
-  // const color = (d) => color_map[d.type];
 
 
 
   // add the option to drag the force graph nodes as part of its simulation.
-
   const drag = (simulation) => {
     const dragstarted = (d) => {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -86,25 +82,15 @@ export function runForceGraph(
       .on("end", dragended);
   };
 
-  // node tooltip generation
-  // Add the tooltip element to the graph
 
-  const tooltip = document.querySelector("#graph-tooltip");
-  if (!tooltip) {
-    const tooltipDiv = document.createElement("div");
-    tooltipDiv.classList.add(styles.tooltip);
-    tooltipDiv.style.opacity = "0";
-    tooltipDiv.id = "graph-tooltip";
-    document.body.appendChild(tooltipDiv);
-  }
-  //const div = d3.select("#graph-tooltip");
-
+  // simulation
   const simulation = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id).distance(30))//*dimensionFactor))
     .force("charge", d3.forceManyBody().strength(-1000))
     .force("center", d3.forceCenter(width / 5, height / 3))
 
 
+  // genres2nodes map
   let genres_nodes = {}
   genres.map((genre) => genres_nodes[genre] = [])
   nodes.forEach((node) => {
@@ -116,16 +102,15 @@ export function runForceGraph(
   }
 
 
-   // Create data
+  // Split genres data for left and right legend panel
 
-  //const data_left = genres.filter((currentElement, index, array) => index <= Math.floor(genres.length/2))
   const data_left = genres.slice(0,Math.floor(genres.length/2))
   const data_right =  genres.slice(Math.floor(genres.length/2),)
 
 
 
 
-  // --------------------- legend left ------------------------ //
+  // --------------------- legend left panel ------------------------ //
 
   // get the legend  width and height LEFT
   const legendRect_LEFT = legendLeft.getBoundingClientRect()
@@ -134,15 +119,11 @@ export function runForceGraph(
 
   // create svg element
   const legendsvg_LEFT = d3.select(legendLeft).append("svg").attr("width", '100%').attr("height", '80vh').append("g")
+  let wr_LEFT = height_l_LEFT / data_left.length
 
 
 
-  let wr_LEFT = height_l_LEFT / data_left.length 
-  //let width_l_LEFT = width_ll_LEFT - wr_LEFT
-
-
-
-  /*const legend_col =*/ legendsvg_LEFT
+  legendsvg_LEFT
       .selectAll("#legend-row").data(data_left)
       .enter()
       .append("rect")
@@ -200,7 +181,7 @@ export function runForceGraph(
 
     })
 
-      /*const label_col =*/ legendsvg_LEFT.append("g")
+    legendsvg_LEFT.append("g")
         .selectAll("text")
         .data(data_left)
         .enter()
@@ -212,10 +193,10 @@ export function runForceGraph(
         .style("font-size", "20px")
 
 
-      // ------------ legend right ------------- //
+  // --------------------- legend right panel ------------------------ //
 
         // create svg element
-        const legendsvg_RIGHT = d3.select(legendRight).append("svg").attr("width", '100%').attr("height", '80vh').append("g")
+      const legendsvg_RIGHT = d3.select(legendRight).append("svg").attr("width", '100%').attr("height", '80vh').append("g")
 
 
       legendsvg_RIGHT
@@ -292,8 +273,6 @@ export function runForceGraph(
           .attr("fill", (d) => genresColorMap[d].replace('0.75','1'))
           .style("font-size", "20px")
 
-
-      // ----------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
       // ------------- graph ---------------- //

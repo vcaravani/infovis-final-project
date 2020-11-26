@@ -5,7 +5,7 @@ import * as d3 from "d3"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import './App.css';
+import '../App.css';
 
 
 class ForceGraphClass extends React.Component {

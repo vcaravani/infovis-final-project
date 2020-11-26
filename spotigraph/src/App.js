@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ForceGraphClass from './ForceGraphClass'
-import armstrong from './louis_armstrong_dataset.json'
-import monk from './thelonious_monk_dataset.json'
-import etta from './etta_james_dataset.json'
+import ForceGraphClass from './d3/ForceGraphClass'
+import armstrong from './data/louis_armstrong_dataset.json'
+import monk from './data/thelonious_monk_dataset.json'
+import etta from './data/etta_james_dataset.json'
 
 
 class App extends React.Component {
@@ -18,10 +18,11 @@ class App extends React.Component {
       genres: null,
       graphView : false
     }
-    this.getNowPlaying = this.getNowPlaying.bind(this)
+    this.startNavigation = this.startNavigation().bind(this)
   }
 
-  getNowPlaying(event) {
+  startNavigation(event) {
+
     console.log('get now playing', event.target.id)
     let stub_dataset;
     if(event.target.id === 'monk'){
@@ -31,8 +32,9 @@ class App extends React.Component {
     }else if(event.target.id === 'etta'){
       stub_dataset = etta
     }
-    setTimeout( () => this.setState({nodes: stub_dataset.nodes,links:stub_dataset.links}),3000)//this.getRelatedArtistsDepth2(), 3000)
-    setTimeout( () => this.fillGraph(), 6000)
+
+    this.setState({nodes: stub_dataset.nodes,links:stub_dataset.links})
+    this.fillGraph()
   }
 
   getFilteredGenres(genres,topgenreslist){
@@ -49,7 +51,7 @@ class App extends React.Component {
     return filterd_genre
   }
 
-  getMostPresentGenres(nodes, links){
+  getMostPresentGenres(nodes){
     let genres = new Set()
     let genres2count = {}
     nodes.forEach((node) => {
@@ -96,7 +98,6 @@ class App extends React.Component {
     if (this.state.graphView != null) {
       graphsection = <section className="Main">
         <ForceGraphClass linksData={this.state.links} nodesData={this.state.nodes} genres={this.state.all_genres}></ForceGraphClass>
-       {/*  <ShowJson graphs={this.state.relatedArtistGraph}></ShowJson> */}
       </section>
     }
 
@@ -117,17 +118,15 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-sm-4">
                   <div className="card" style={{width: "100%", backgroundColor:"#282c34"}}>
-                    <img className="card-img-top"/>
                       <div className="card-body">
                         <h5 className="card-title" style={{color:'rgb(29, 185, 84)'}}>Luis Armstrong</h5>
-                        <button className="btn btn-outline-success" id='armstrong' onClick={this.getNowPlaying}>Start Navigation</button>
+                        <button className="btn btn-outline-success" id='armstrong' onClick={this.startNavigation}>Start Navigation</button>
                       </div>
                   </div>
 
                 </div>
                 <div className="col-sm-4">
                     <div className="card" style={{width: "100%", backgroundColor:"#282c34"}}>
-                      <img className="card-img-top"/>
                       <div className="card-body">
                         <h5 className="card-title" style={{color:'rgb(29, 185, 84)'}}>Thelonious Monk</h5>
                         <button className="btn btn-outline-success" id='monk' onClick={this.getNowPlaying}>Start Navigation</button>
@@ -136,7 +135,6 @@ class App extends React.Component {
                 </div>
                 <div className="col-sm-4">
                   <div className="card" style={{width: "100%", backgroundColor:"#282c34"}}>
-                    <img className="card-img-top"/>
                     <div className="card-body">
                       <h5 className="card-title" style={{color:'rgb(29, 185, 84)'}}>Etta James</h5>
                       <button className="btn btn-outline-success" id='etta' onClick={this.getNowPlaying}>Start Navigation</button>
