@@ -3,7 +3,7 @@
 
 ## Spotigraph
 
-Spotigraph is a web application that allows the interactive visualization of the correlates of an artist currently listening on Spotify. 
+Spotigraph is a web application that allows an interactive visualization of the correlates of an artist currently listening on Spotify. 
 Spotigraph allows you to better understand the galaxy of artists related to the current listening artist, in the visualization it is possible to browse the artists by genre and select artists to queue in the listening. For full funcionality it requires a Spotify Premium Account.
 Spotigraph is my final project for the Information Visualization class by Prof. Maurizio Patrignani and my last exam at Roma Tre University :)
 
@@ -21,6 +21,7 @@ The following libraries were used in developing the application:
 - D3.js (https://d3js.org/) to render the graph of related artists
 - spotify-web-api-js (https://github.com/JMPerez/spotify-web-api-js) to interact with the endpoints of the spotify web api
 
+
 ### React
 
 React is a JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.
@@ -28,45 +29,62 @@ React is to use to build the structure of the application, and to render traditi
 
 #### ForceGraphClass and ForceGraphGenerator
 
-In src/components there is ForceGraphClass.js class which manages the state and the rendering of the <div> containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
+In src/components there is ForceGraphClass.js class which manages the state and the rendering of the div containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
  
-In a nutshell ForceGraphClass is a wrapper that allows the passage of the data relating to the current track to the d3 code in ForceGraphGenerator.js module.
-
 
 ### Visulization
 
-The main goal of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-related (relatd of related).
+The main objective of the project is the visualization of the graph of the related artists. Based on the current listening, access requests are made to the Spotify Web API to get the artists related to the artist of the current track and then for each related artist the same request is repeated.
 
-The requests to the Spotify Web Api lead to the creation of a graph through a data structure {'nodes': [...],' links: [...]}, where there is a node for each artist and a link between nodes for each correlation relationship.
+The requests to the Spotify Web Api lead to the creation of a graph in a data structure like {'nodes': [...],' links: [...]}, where there is a node for each artist and a link between nodes for each correlation relationship.
+
+Name, genres, image, popularity index are stored for each artists. Each node is a circle and displays the artist's name as a label, it is colored according to the artist's genres and its radius represent the popularity index of the artist.
+
+##### genres limitation
+
+For each artist, the Spotify Web Api returns information on his genres, we have chosen to limit the number of genres per artist to two. These two genres are chosen from the artist's list of genres are selected for each node among his genres the two most present among the neighbors.
+
+
+The graph is displayed using a force-directed algorithm, this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation. In D3 section there are more specifications about force-directed simulation.
+
+
+
+
+ #### User Task
+ 
+ The user can have this type of interaction with the graph:
+ - pan
+ - zoom
+ - click on a node to highlights links to neighbors
+ - filter node by genres's legends
+ 
+The user zooming out gets a blurry view of the nodes in order to better appreciate the color shades of the clusters.
+
 
 #### D3.js
 
 The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
+Drawing the graph of related artists and creating genre legends are done using d3.js
 
-The graph is displayed using a force-directed algorithm (https://github.com/d3/d3-force), this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation
+Here's the code of simulation:
 
-Il contenuto informativo che si è scelto di visualizzare tramite i nodi rigurda:
-- il nome dell'artista
-- due generi tra i generi dell'artista
-- la popolarity dell'artista
+```
+  const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id).distance(..)))
+    .force("charge", d3.forceManyBody().strength(...))
+    .force("center", d3.forceCenter(width / ..., height / ...))
+```
 
-Queste informazioni sono graficamento visualizzate a livello di nodo del grafo:
- - popolarità, determinerà la dimensione del raggio dei circle che rappresentano i nodi
- - il genere dell'artista che è risultato il più presente nei vicini, determinerà il colore del nodo
- - il genere dell'artista che è risultato il secondo più presente nei vicini, determinerà il colore del bordo del nodo
+reference: https://github.com/d3/d3-force
 
-##### genres limitation
-Le Spotify Web API per ogni artista riportano i suoi generi, per semplicità  si è scelto di limitare a due il numero di generi per artista. Questi due generi sono scelti dalla lista dei generi dell'artista tramite un algoritmo che seleziona i due generi più presenti tra i correlati dell'artista correntemente in ascolto
+
+
+
+
+
 
 
  
- #### User Task
- 
- L'utente può avere queste interazioni con la visualizzazione:
- - interazione con il grafo
-    -l'utente può fare panning and zooming
-    -l'utente cliccando su un nodo può vedere evidenziati i vicini di quel nodo
-    -l'utente può filtrare
 
 
 
@@ -86,24 +104,10 @@ Making authorized requests to the Spotify platform requires that you are granted
 (https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)
 
 
-#### Set up authentication server
-Follow this instruction to 
 
-```
-git clone https://github.com/spotify/web-api-auth-examples.git 
-cd auth-server
-npm install
-```
-To set up the authentication server you need 
-```
-/* auth-server/authorization_code/app.js */
+### How to run local version
 
-var client_id = ‘CLIENT_ID’;
-var client_secret = ‘CLIENT_SECRET’; 
-var redirect_uri = ‘REDIRECT_URI’; // redirect uri to Spotigraph (in offline vesion localhost:3000)
-```
 
-to get CLIENT_ID and CLIENT_SECRET follow https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app guidelines.
 
 
 
