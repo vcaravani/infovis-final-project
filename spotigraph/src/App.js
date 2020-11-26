@@ -23,7 +23,7 @@ class App extends React.Component {
 
   startNavigation(event) {
 
-    console.log('get now playing', event.target.id)
+
     let stub_dataset;
     if(event.target.id === 'monk'){
       stub_dataset = monk
@@ -33,8 +33,8 @@ class App extends React.Component {
       stub_dataset = etta
     }
 
-    this.setState({nodes: stub_dataset.nodes,links:stub_dataset.links})
-    this.fillGraph()
+    setTimeout(() => this.setState({nodes: stub_dataset.nodes,links:stub_dataset.links}),1000)
+    setTimeout(() => this.fillGraph(),2000)
   }
 
   getFilteredGenres(genres,topgenreslist){
@@ -52,6 +52,7 @@ class App extends React.Component {
   }
 
   getMostPresentGenres(nodes){
+    
     let genres = new Set()
     let genres2count = {}
     nodes.forEach((node) => {
@@ -65,14 +66,11 @@ class App extends React.Component {
     })
     let gen2count_list = []
     for (const [key, value] of Object.entries(genres2count)) {
-      console.log(key,value)
       gen2count_list.push([key,value]);
     }
     gen2count_list.sort((a,b) => b[1] - a[1])
     nodes.map( (node) => {
-      console.log(node.genres)
       node.genres = this.getFilteredGenres(node.genres,gen2count_list)
-      console.log('----------',node.genres)
       genres.add(node.genres[0])
       genres.add(node.genres[1])
       return null
@@ -82,8 +80,7 @@ class App extends React.Component {
 
 
   fillGraph() {
-    console.log('fill graph')
-    let genres = this.getMostPresentGenres(this.state.nodes,this.state.links)
+    let genres = this.getMostPresentGenres(this.state.nodes)
     this.setState({
       all_genres: genres,
       graphView : true
@@ -129,7 +126,7 @@ class App extends React.Component {
                     <div className="card" style={{width: "100%", backgroundColor:"#282c34"}}>
                       <div className="card-body">
                         <h5 className="card-title" style={{color:'rgb(29, 185, 84)'}}>Thelonious Monk</h5>
-                        <button className="btn btn-outline-success" id='monk' onClick={this.getNowPlaying}>Start Navigation</button>
+                        <button className="btn btn-outline-success" id='monk' onClick={this.startNavigation}>Start Navigation</button>
                       </div>
                   </div>
                 </div>
@@ -137,7 +134,7 @@ class App extends React.Component {
                   <div className="card" style={{width: "100%", backgroundColor:"#282c34"}}>
                     <div className="card-body">
                       <h5 className="card-title" style={{color:'rgb(29, 185, 84)'}}>Etta James</h5>
-                      <button className="btn btn-outline-success" id='etta' onClick={this.getNowPlaying}>Start Navigation</button>
+                      <button className="btn btn-outline-success" id='etta' onClick={this.startNavigation}>Start Navigation</button>
                     </div>
                   </div>
                 </div>
