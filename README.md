@@ -107,6 +107,16 @@ Making authorized requests to the Spotify platform requires that you are granted
 
 ### How to run local version
 
+You’ll need to have Node >= 8.10 and npm >= 5.6 on your machine. To create a project, run:
+
+```
+git clone https://github.com/vcaravani/infovis-final-project.git
+cd infovis-final-project/spotigraph
+yarn install (or npm install)
+yarn start (or npm start)
+```
+
+
 
 
 
