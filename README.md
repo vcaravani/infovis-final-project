@@ -40,28 +40,36 @@ The requests to the Spotify Web Api lead to the creation of a graph in a data st
 
 Name, genres, image, popularity index are stored for each artists. Each node is a circle and displays the artist's name as a label, it is colored according to the artist's genres and its radius represent the popularity index of the artist.
 
-
 ##### genres limitation
 
-For each artist, the Spotify Web Api returns information on his genres, for simplicity we have chosen to limit the number of genres per artist to two. These two genres are chosen from the artist's list of genres are selected for each node among his genres the two most present among the neighbors.
+For each artist, the Spotify Web Api returns information on his genres, we have chosen to limit the number of genres per artist to two. These two genres are chosen from the artist's list of genres are selected for each node among his genres the two most present among the neighbors.
+
+
+The graph is displayed using a force-directed algorithm, this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation. In D3 section there are more specifications about force-directed simulation.
+
+
+
+
+ #### User Task
+ 
+ The user can have this type of interaction with the graph:
+ - pan
+ - zoom
+ - click on a node to highlights links to neighbors
+ - filter node by genres's legends
+ 
+The user zooming out gets a blurry view of the nodes in order to better appreciate the color shades of the clusters.
 
 
 #### D3.js
 
 The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
 
-The graph is displayed using a force-directed algorithm (https://github.com/d3/d3-force), this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation
+
 
 
 
  
- #### User Task
- 
- L'utente può avere queste interazioni con la visualizzazione:
- - interazione con il grafo
-    -l'utente può fare panning and zooming
-    -l'utente cliccando su un nodo può vedere evidenziati i vicini di quel nodo
-    -l'utente può filtrare
 
 
 
