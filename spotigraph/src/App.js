@@ -18,7 +18,7 @@ class App extends React.Component {
       genres: null,
       graphView : false
     }
-    this.startNavigation = this.startNavigation().bind(this)
+    this.startNavigation = this.startNavigation.bind(this)
   }
 
   startNavigation(event) {
