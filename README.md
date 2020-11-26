@@ -10,11 +10,44 @@ Spotigraph is my final project for the Information Visualization class by Prof. 
 ## Motivation
 Spotify is the best application on the market for listening to music, however there is no possibility to graphically browse the artists. The page of an artist presents related artists through a list, without any informative content on the genres and popularity of the artist and its related.
 
-### Project
-Spotigraph tenta di espandere le funzionalità di Spotify, sfruttando le informazioni presenti nello Spotify Data Catalogue, permettendo una navigazione visuale degli artisti correlati, fornendo soprattutto informazioni sui generi più rilevanti presenti negli artisti correlati.
+## Project
+Spotigraph aims to expand the capabilities of Spotify using the information present in the Spotify Data Catalog, allowing a visual navigation of related artists and providing information on the most relevant genres present in related artists.
 
-L'oggetto principale del progetto è la visualizzazione del grafo degli artisti correlati. In base all'ascolto corrente, vengono fatte richieste alla Spotify Web Api per accedere ai correlati a distanza 2 (i correlati dei correlati). Le richieste portano alla creazione di un grafo tramite una struttura dati del tipo { 'nodes':[...], 'links: [...] }. 
-Il grafo è visualizzato mediante un algoritmo force-directed, questa tecnica di disegno del grafo permette una buona visualizzazione della nuvola degli artisti ed inoltre una buona clusterizzazione degli artisti in base al grado di correlazione (per grado di correlazione si intende il numero di archi incidenti nel nodo, artisti molto correlati tra loro saranno centrali e vicini tra loro, artisti poco correlati si troveranno ai margini della visualizzazione).
+The following libraries were used in developing the application:
+- React (https://it.reactjs.org/) for UI creation
+- D3.js (https://d3js.org/) to render the graph of related artists
+- spotify-web-api-js (https://github.com/JMPerez/spotify-web-api-js) to interact with the endpoints of the spotify web api
+
+### React
+
+React is a JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.
+React is to use to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container ( a Ref to a <div>) over to D3 and use D3 to create and destroy and update elements.
+
+#### ForceGraphClass and ForceGraphGenerator
+
+In src/components there is ForceGraphClass.js class which manages the state and the rendering of the <div> containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function.
+
+
+
+
+
+
+
+
+
+
+### Visulization 
+The main object of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-correlates (correlates of correlates).
+
+The requests to the Spotify Web Api lead to the creation of a graph through a data structure {'nodes': [...],' links: [...]}, where there is a node for each artist and a link between nodes for each correlation relationship.
+
+#### D3.js
+Per la renderizzazione del grafo è stata usata la libreria D3.js. D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
+
+
+
+
+Il grafo è visualizzato mediante un algoritmo force-directed (https://github.com/d3/d3-force), questa tecnica di disegno del grafo permette una buona visualizzazione della nuvola degli artisti ed inoltre una buona clusterizzazione degli artisti in base al grado di correlazione (per grado di correlazione si intende il numero di archi incidenti nel nodo, artisti molto correlati tra loro saranno centrali e vicini tra loro, artisti poco correlati si troveranno ai margini della visualizzazione).
 
 Gli artisti sono rappresentati dai nodi del grafo e la correlazione è rappresentata dalla presenza o meno di un arco tra due artisti(nodi).
 
@@ -30,33 +63,22 @@ Queste informazioni sono graficamento visualizzate a livello di nodo del grafo:
  - il genere dell'artista che è risultato il più presente nei vicini, determinerà il colore del nodo
  - il genere dell'artista che è risultato il secondo più presente nei vicini, determinerà il colore del bordo del nodo
  
- #### Task Utente
+ 
+ 
+ #### User Task
  
  L'utente può avere queste interazioni con la visualizzazione:
  - interazione con il grafo
     -l'utente può fare panning and zooming
-    -l'utente può cliccando su un nodo vedere evidenziati i vicini di quel nodo, 
+    -l'utente cliccando su un nodo può vedere evidenziati i vicini di quel nodo
+    -l'utente può filtrare
  
  
 
 
 
-Partendo da una traccia in ascolto sull'applicazione (desktop o mobile)
-The project mainly uses these three libraries:
-- React (https://it.reactjs.org/) for UI creation
-- D3 (https://d3js.org/) for rendering the graph of related artists
-- spotify-web-api-js (https://github.com/JMPerez/spotify-web-api-js) to simply interact with the endpoints of the spotify web api
 
-
-
-
-
-# Offline Version
-For exam evaluation reasons, the current version is an offline version which does not require a Spotify account and which has a limited choice between the artists to browse.
-
-
-
-## Spotify Web Api
+### Spotify Web Api
 Based on simple REST principles, the Spotify Web API endpoints return JSON metadata about music artists, albums, and tracks, directly from the Spotify Data Catalogue.
 Web API also provides access to user related data, like playlists and music that the user saves in the Your Music library. Such access is enabled through selective authorization, by the user.
 
@@ -67,7 +89,7 @@ Spotigraph uses these Spotify endpoints:
 - https://api.spotify.com/v1/me/player/queue
 - https://api.spotify.com/v1/me/player/currently-playing
 
-### Authorization
+#### Authorization
 Making authorized requests to the Spotify platform requires that you are granted permission to access data. Spotigraph among the methods proposed for developers, uses Authorization Code Flow.
 (https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)
 
