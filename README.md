@@ -64,6 +64,21 @@ The user zooming out gets a blurry view of the nodes in order to better apprecia
 #### D3.js
 
 The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
+Drawing the graph of related artists and creating genre legends are done using d3.js
+
+Here's the code of simulation:
+
+```
+  const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id).distance(..)))
+    .force("charge", d3.forceManyBody().strength(...))
+    .force("center", d3.forceCenter(width / ..., height / ...))
+```
+
+reference: https://github.com/d3/d3-force
+
+
+
 
 
 
@@ -89,24 +104,10 @@ Making authorized requests to the Spotify platform requires that you are granted
 (https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)
 
 
-#### Set up authentication server
-Follow this instruction to 
 
-```
-git clone https://github.com/spotify/web-api-auth-examples.git 
-cd auth-server
-npm install
-```
-To set up the authentication server you need 
-```
-/* auth-server/authorization_code/app.js */
+### How to run local version
 
-var client_id = ‘CLIENT_ID’;
-var client_secret = ‘CLIENT_SECRET’; 
-var redirect_uri = ‘REDIRECT_URI’; // redirect uri to Spotigraph (in offline vesion localhost:3000)
-```
 
-to get CLIENT_ID and CLIENT_SECRET follow https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app guidelines.
 
 
 
