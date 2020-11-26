@@ -21,49 +21,41 @@ The following libraries were used in developing the application:
 ### React
 
 React is a JavaScript library for building user interfaces. Build encapsulated components that manage their own state, then compose them to make complex UIs.
-React is to use to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container ( a Ref to a <div>) over to D3 and use D3 to create and destroy and update elements.
+React is to use to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container over to D3 and use D3 to create and destroy and update elements.
 
 #### ForceGraphClass and ForceGraphGenerator
 
-In src/components there is ForceGraphClass.js class which manages the state and the rendering of the <div> containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function.
+In src/components there is ForceGraphClass.js class which manages the state and the rendering of the <div> containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
+ 
+In a nutshell it is a wrapper that allows the passage of the data relating to the current track to the d3 code.
 
 
+### Visulization
 
-
-
-
-
-
-
-
-### Visulization 
-The main object of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-correlates (correlates of correlates).
+The main object of the project is the visualization of the graph of related artists. Based on the current listening, requests are made to the Spotify Web Api to access depth-2-related (relatd of related).
 
 The requests to the Spotify Web Api lead to the creation of a graph through a data structure {'nodes': [...],' links: [...]}, where there is a node for each artist and a link between nodes for each correlation relationship.
 
 #### D3.js
-Per la renderizzazione del grafo è stata usata la libreria D3.js. D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
 
+The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
 
-
-
-Il grafo è visualizzato mediante un algoritmo force-directed (https://github.com/d3/d3-force), questa tecnica di disegno del grafo permette una buona visualizzazione della nuvola degli artisti ed inoltre una buona clusterizzazione degli artisti in base al grado di correlazione (per grado di correlazione si intende il numero di archi incidenti nel nodo, artisti molto correlati tra loro saranno centrali e vicini tra loro, artisti poco correlati si troveranno ai margini della visualizzazione).
-
-Gli artisti sono rappresentati dai nodi del grafo e la correlazione è rappresentata dalla presenza o meno di un arco tra due artisti(nodi).
+The graph is displayed using a force-directed algorithm (https://github.com/d3/d3-force), this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation
 
 Il contenuto informativo che si è scelto di visualizzare tramite i nodi rigurda:
 - il nome dell'artista
 - due generi tra i generi dell'artista
 - la popolarity dell'artista
 
-Le Spotify Web API per ogni artista riportano i suoi generi, per semplicità  si è scelto di limitare a due il numero di generi per artista. Questi due generi sono scelti dalla lista dei generi dell'artista tramite un algoritmo che seleziona i due generi più presenti tra i correlati dell'artista correntemente in ascolto
-
 Queste informazioni sono graficamento visualizzate a livello di nodo del grafo:
  - popolarità, determinerà la dimensione del raggio dei circle che rappresentano i nodi
  - il genere dell'artista che è risultato il più presente nei vicini, determinerà il colore del nodo
  - il genere dell'artista che è risultato il secondo più presente nei vicini, determinerà il colore del bordo del nodo
- 
- 
+
+##### genres limitation
+Le Spotify Web API per ogni artista riportano i suoi generi, per semplicità  si è scelto di limitare a due il numero di generi per artista. Questi due generi sono scelti dalla lista dei generi dell'artista tramite un algoritmo che seleziona i due generi più presenti tra i correlati dell'artista correntemente in ascolto
+
+
  
  #### User Task
  
@@ -72,9 +64,6 @@ Queste informazioni sono graficamento visualizzate a livello di nodo del grafo:
     -l'utente può fare panning and zooming
     -l'utente cliccando su un nodo può vedere evidenziati i vicini di quel nodo
     -l'utente può filtrare
- 
- 
-
 
 
 
