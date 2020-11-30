@@ -14,7 +14,7 @@ Spotigraph is my final project for the Information Visualization class by Prof. 
 Spotify is the best application on the market for listening to music, however there is no possibility to graphically browse the artists. The page of an artist presents related artists through a list, without any informative content on the genres and popularity of the artist and its related.
 
 ## Project
-Spotigraph aims to expand the capabilities of Spotify using the information present in the Spotify Data Catalog, allowing a visual navigation of related artists and providing information on the most relevant genres present in related artists.
+Spotigraph aims to expand the features of Spotify using the information present in the Spotify Data Catalog, allowing a visual navigation of related artists and providing information on the most relevant genres present in related artists.
 
 The following libraries were used in developing the application:
 - React (https://it.reactjs.org/) for UI creation
