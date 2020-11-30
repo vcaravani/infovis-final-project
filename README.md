@@ -66,8 +66,14 @@ The user zooming out gets a blurry view of the nodes in order to better apprecia
 The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
 Drawing the graph of related artists and creating genre legends are done using d3.js
 
-The d3 code is in 'src/d3/ForceGraphGenerator.js'
+The d3 code is in 'src/d3/ForceGraphGenerator.js', the runForceGraph function generates the graph and the side legends that contain the genres. 
 
+##### genres legend
+The ForceGraphGenerator class passes the genres chosen by the algorithm selection to the neighbors, to the function and the reference to the two divs that will host the legends.
+
+
+##### related artist graph
+The ForceGraphClass.js class takes care of invoking the runForceGraph function with the live data given by listening on spotify, the management of the graph updates is entrusted to d3 update engine triggered by a check of a binary variabile (var toogle in code) that works as a state of the view.
 
 Here's the code of simulation:
 
@@ -77,18 +83,9 @@ Here's the code of simulation:
     .force("charge", d3.forceManyBody().strength(...))
     .force("center", d3.forceCenter(width / ..., height / ...))
 ```
+Better tuning of link size and repulsive force between nodes can be mitigated by using a factor, which is the subject of future app developments.
 
 reference: https://github.com/d3/d3-force
-
-
-
-
-
-
-
-
- 
-
 
 
 ### Spotify Web Api
