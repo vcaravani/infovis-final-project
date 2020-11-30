@@ -125,7 +125,16 @@ cooming soon, now enjoy a demo-gif!
 
 
 
+### References
 
+- https://d3js.org/
+- https://en.reactjs.org/
+- https://developer.spotify.com/documentation/web-api/
+- https://bl.ocks.org/almsuarez/4333a12d2531d6c1f6f22b74f2c57102
+- https://medium.com/@Elijah_Meeks/interactive-applications-with-react-d3-f76f7b3ebc71
+- https://levelup.gitconnected.com/
+- https://github.com/gilbarbara/react-spotify-web-playback
+- https://www.smashingmagazine.com/2018/02/react-d3-ecosystem/
 
 
 
