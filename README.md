@@ -5,7 +5,7 @@
 
 Spotigraph is a web application that allows an interactive visualization of the correlates of an artist currently listening on Spotify. 
 Spotigraph allows you to better understand the galaxy of artists related to the current listening artist, in the visualization it is possible to browse the artists by genre and select artists to queue in the listening. For full funcionality it requires a Spotify Premium Account.
-Spotigraph is my final project for the Information Visualization class by Prof. Maurizio Patrignani and my last exam at Roma Tre University :)
+Spotigraph is my final project for the Information Visualization class by Prof. Maurizio Patrignani.
 
 ![alt text](https://github.com/vcaravani/infovis-final-project/blob/main/spotigraph.jpg?raw=true)
 
@@ -29,7 +29,7 @@ React is to use to build the structure of the application, and to render traditi
 
 #### ForceGraphClass and ForceGraphGenerator
 
-In src/components there is ForceGraphClass.js class which manages the state and the rendering of the div containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
+In spotigraph/src/d3 there is ForceGraphClass.js React class which manages the state and the rendering of the div containing the graph created with d3 in ForceGraphGenerator.js by runForceGraph function. ForceGraphClass.js call runForceGraph function on component mount, updating the graph is the task of d3 and not of React. 
  
 
 ### Visulization
@@ -106,6 +106,16 @@ Making authorized requests to the Spotify platform requires that you are granted
 
 
 ### How to run local version
+
+You’ll need to have Node >= 8.10 and npm >= 5.6 on your machine. To create a project, run:
+
+```
+git clone https://github.com/vcaravani/infovis-final-project.git
+cd infovis-final-project/spotigraph
+yarn install (or npm install)
+yarn start (or npm start)
+```
+
 
 
 
