@@ -66,6 +66,9 @@ The user zooming out gets a blurry view of the nodes in order to better apprecia
 The D3.js library was used to render the graph D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document.
 Drawing the graph of related artists and creating genre legends are done using d3.js
 
+The d3 code is in 'src/d3/ForceGraphGenerator.js'
+
+
 Here's the code of simulation:
 
 ```
@@ -116,6 +119,12 @@ yarn install (or npm install)
 yarn start (or npm start)
 ```
 
+
+### Online Version
+
+cooming soon, now enjoy a demo-gif!
+
+![alt text](https://github.com/vcaravani/infovis-final-project/blob/main/demo_cut.gif?raw=true)
 
 
 
