@@ -40,12 +40,14 @@ The requests to the Spotify Web Api lead to the creation of a graph in a data st
 
 Name, genres, image, popularity index are stored for each artists. Each node is a circle and displays the artist's name as a label, it is colored according to the artist's genres and its radius represent the popularity index of the artist.
 
+The graph is displayed using a force-directed algorithm, this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation. In D3 section there are more specifications about force-directed simulation.
+
+
 ##### genres limitation
 
-For each artist, the Spotify Web Api returns information on his genres, we have chosen to limit the number of genres per artist to two. These two genres are chosen from the artist's list of genres are selected for each node among his genres the two most present among the neighbors.
+Genres limitation is for simplify visualization, for each artist, the Spotify Web Api returns information on his genres, we have chosen to limit the number of genres per artist to two. These two genres are chosen from the artist's list of genres are selected for each node among his genres the two most present among the neighbors.
 
 
-The graph is displayed using a force-directed algorithm, this graph drawing technique leads to a good visualization of the artists' cloud and also a good clustering of the artists based on the degree of correlation. In D3 section there are more specifications about force-directed simulation.
 
 
 
