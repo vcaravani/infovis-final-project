@@ -1,7 +1,7 @@
 # infovis-final-project
 
 
-## Spotigraph
+# Spotigraph
 
 Spotigraph is a web application that allows an interactive visualization of the correlates of an artist currently listening on Spotify. 
 Spotigraph allows you to better understand the galaxy of artists related to the current listening artist, in the visualization it is possible to browse the artists by genre and select artists to queue in the listening. For full funcionality it requires a Spotify Premium Account.
@@ -58,7 +58,7 @@ Genres limitation is for simplify visualization, for each artist, the Spotify We
  - pan
  - zoom
  - click on a node to highlights links to neighbors
- - filter node by genres's legends
+ - filter nodes by genres
  
 The user zooming out gets a blurry view of the nodes in order to better appreciate the color shades of the clusters.
 
